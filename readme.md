@@ -67,7 +67,7 @@ Returns: `multiPrompt`
 > Starts the prompt
 
 ```javascript
-import prompt from '@joegesualdo/multi-prompt-node'
+import MultiPrompt from '@joegesualdo/multi-prompt-node'
 
 const questions = [
   {
@@ -85,7 +85,7 @@ new MultiPrompt(questions)
 .begin()
 ```
 
-### `prompt.on(type, fn)`
+### `multiPrompt.on(type, fn)`
 > Sets lifecycle methods
 
 #### Params
@@ -95,7 +95,7 @@ new MultiPrompt(questions)
 | fn   | `Function` |  `N/A`  | Function to run    | `N/A`|
 
 ```javascript
-import prompt from '@joegesualdo/multi-prompt-node'
+import MultiPrompt from '@joegesualdo/multi-prompt-node'
 
 const questions = [
   {
