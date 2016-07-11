@@ -1,7 +1,7 @@
 {
   "name": "@joegesualdo/multi-prompt-node",
   "repository": "joegesualdo/multi-prompt-node",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Multiple command line prompts.",
   "main": "./dist/index.js",
   "scripts": {
@@ -14,6 +14,7 @@
     "distify-cli": "0.0.13"
   },
   "dependencies": {
+    "@joegesualdo/indent-string": "0.0.5",
     "@joegesualdo/promise-queue": "0.0.5",
     "@joegesualdo/prompt-node": "0.0.5",
     "chalk": "^1.1.3",

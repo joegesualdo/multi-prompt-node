@@ -1,10 +1,14 @@
 import Prompt from '@joegesualdo/prompt-node';
 import PromiseQueue from '@joegesualdo/promise-queue';
 import stripAnsi from 'strip-ansi'
+import indentString from '@joegesualdo/indent-string'
 
 class MultiPrompt {
-  constructor(prompts = []) {
+  constructor(prompts = [], {
+    indent = 2,
+  } = {}) {
     this.prompts = prompts;
+    this.indent = indent;
     this.onDone = () => {};
   }
   addPrompt(prompt) {
@@ -47,7 +51,7 @@ class MultiPrompt {
               if (question.validation) {
                 opts.validation = question.validation
               }
-              new Prompt(question.prompt, {validation: question.validation})
+              new Prompt(indentString(question.prompt, instance.indent), {validation: question.validation})
               .on('validationError', (answer) => {
                 if(question.validation && question.onValidationError) {
                   question.onValidationError(answer)

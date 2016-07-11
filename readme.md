@@ -33,13 +33,14 @@ new MultiPrompt(questions)
 $ npm test
 ```
 ## API
-### `MultiPrompt(prompts)`
+### `MultiPrompt(prompts, [options])`
 > Instantiates a new prompt
 
 #### Params
 | Name |   Type  | Default |   Description    |
 |------|---------|---------|------------------|
-| prompts | `Array<Object>` |   ` `   | An object representing properties of a prompt
+| prompts | `Array<Object>` |   `[]`   | An object representing properties of a prompt |
+| options | `Object` |   `{}`   | Configuration options |
 
 #### Example Promp Object:
 ```
@@ -60,6 +61,10 @@ $ npm test
   }
 }
 ```
+#### Options
+| Name |   Type  | Default |   Description    |
+|------|---------|---------|------------------|
+| indent | `Number` |   `2`   | How many spaces do you want the prompts to be indented |
 
 Returns: `multiPrompt`
 
@@ -78,7 +83,9 @@ const questions = [
   },
 ]
 
-new MultiPrompt(questions)
+new MultiPrompt(questions, {
+  indent: 4,
+})
 .on('done', result=> {
   console.log(result)
 })

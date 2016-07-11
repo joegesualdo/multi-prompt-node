@@ -199,7 +199,10 @@ const questions = [
   // }
 ]
 
-new MultiPrompt(questions)
+process.stdout.write('\n')
+new MultiPrompt(questions, {
+  indent: 5,
+})
 .on('done', result => {
   console.log('')
   console.log(result)
