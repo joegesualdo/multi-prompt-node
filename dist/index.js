@@ -100,64 +100,67 @@ module.exports =
 	    key: 'begin',
 	    value: function begin() {
 	      var instance = this;
-	      var promises = instance.prompts.map(function (question) {
-	        return function (results) {
-	          return new Promise(function (resolve, reject) {
-	            // Helpers =====
-	            function isQuestionTrue(results, question) {
-	              // TODO: add options for no (false, no, n)
-	              return question.dependent.answers.some(function (trueAnswer) {
-	                return results[question.dependent.question].answer === trueAnswer;
-	              });
-	            }
-	            function isDependentOnAnotherQuestion(question) {
-	              return question.dependent !== undefined;
-	            }
-
-	            if (!isDependentOnAnotherQuestion(question) || isQuestionTrue(results, question)) {
-	              // }
-	              // prompt(question.prompt)
-	              var opts = {};
-	              if (question.validation) {
-	                opts.validation = question.validation;
+	      return new Promise(function (resolve, reject) {
+	        var promises = instance.prompts.map(function (question) {
+	          return function (results) {
+	            return new Promise(function (resolve, reject) {
+	              // Helpers =====
+	              function isQuestionTrue(results, question) {
+	                // TODO: add options for no (false, no, n)
+	                return question.dependent.answers.some(function (trueAnswer) {
+	                  return results[question.dependent.question].answer === trueAnswer;
+	                });
 	              }
-	              new _promptNode2.default(question.prompt, { validation: question.validation }).on('validationError', function (answer) {
-	                if (question.validation && question.onValidationError) {
-	                  question.onValidationError(answer);
-	                }
-	              }).on('backspace', function () {
-	                if (question.onBackspace) {
-	                  question.onBackspace();
-	                }
-	              }).on('change', function (oldStr, newStr) {
-	                if (question.onChange) {
-	                  question.onChange(oldStr, newStr);
-	                }
-	              }).on('done', function (answer) {
-	                var identifier = question.identifier || (0, _stripAnsi2.default)(question.prompt);
-	                var result = void 0;
-	                if (question.onDone) {
-	                  result = question.onDone(answer);
-	                }
+	              function isDependentOnAnotherQuestion(question) {
+	                return question.dependent !== undefined;
+	              }
 
-	                results[identifier] = {
-	                  prompt: (0, _stripAnsi2.default)(question.prompt),
-	                  answer: result || answer
-	                };
+	              if (!isDependentOnAnotherQuestion(question) || isQuestionTrue(results, question)) {
+	                // }
+	                // prompt(question.prompt)
+	                var opts = {};
+	                if (question.validation) {
+	                  opts.validation = question.validation;
+	                }
+	                new _promptNode2.default(question.prompt, { validation: question.validation }).on('validationError', function (answer) {
+	                  if (question.validation && question.onValidationError) {
+	                    question.onValidationError(answer);
+	                  }
+	                }).on('backspace', function () {
+	                  if (question.onBackspace) {
+	                    question.onBackspace();
+	                  }
+	                }).on('change', function (oldStr, newStr) {
+	                  if (question.onChange) {
+	                    question.onChange(oldStr, newStr);
+	                  }
+	                }).on('done', function (answer) {
+	                  var identifier = question.identifier || (0, _stripAnsi2.default)(question.prompt);
+	                  var result = void 0;
+	                  if (question.onDone) {
+	                    result = question.onDone(answer);
+	                  }
 
+	                  results[identifier] = {
+	                    prompt: (0, _stripAnsi2.default)(question.prompt),
+	                    answer: result || answer
+	                  };
+
+	                  resolve(results);
+	                }).begin();
+	              } else {
 	                resolve(results);
-	              }).begin();
-	            } else {
-	              resolve(results);
-	            }
-	          });
-	        };
-	      });
+	              }
+	            });
+	          };
+	        });
 
-	      var promiseQueue = new _promiseQueue2.default(promises);
+	        var promiseQueue = new _promiseQueue2.default(promises);
 
-	      promiseQueue.run().then(function (qa) {
-	        instance.onDone(qa);
+	        promiseQueue.run().then(function (qa) {
+	          instance.onDone(qa);
+	          resolve(qa);
+	        });
 	      });
 	    }
 	  }]);

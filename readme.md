@@ -110,7 +110,6 @@ new MultiPrompt(questions)
 })
 .begin()
 ```
-```
 ## Build
 ```
 $ npm run build

@@ -1,7 +1,7 @@
 {
   "name": "@joegesualdo/multi-prompt-node",
   "repository": "joegesualdo/multi-prompt-node",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Multiple command line prompts.",
   "main": "./dist/index.js",
   "scripts": {
