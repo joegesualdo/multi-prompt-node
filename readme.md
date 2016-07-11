@@ -43,20 +43,22 @@ $ npm test
 
 #### Example Promp Object:
 ```
-    identifier: 'who',
-    prompt: ` Where do you live?`,
-    dependent: {
-      question: 'language',
-      answers: [
-        'ruby'
-      ]
-    },
-    validation: (answer) => {
-      return ['node', 'ruby'].indexOf(answer) !== -1;
-    }
-    onDone: (answer) => {
-      return 'I am no one :-)'
-    }
+{
+  identifier: 'who',
+  prompt: ` Where do you live?`,
+  dependent: {
+    question: 'language',
+    answers: [
+      'ruby'
+    ]
+  },
+  validation: (answer) => {
+    return ['node', 'ruby'].indexOf(answer) !== -1;
+  }
+  onDone: (answer) => {
+    return 'I am no one :-)'
+  }
+}
 ```
 
 Returns: `multiPrompt`
