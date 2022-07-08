@@ -43,7 +43,7 @@ $ npm test
 | options | `Object` |   `{}`   | Configuration options |
 
 #### Example Promp Object:
-```
+```json
 {
   identifier: 'who',
   prompt: ` Where do you live?`,
